@@ -500,59 +500,90 @@
     margin: 1in;
   }
   @media print {
+    * { box-sizing: border-box !important; }
     .pdf-btn { display: none !important; }
-    html, body { background: #fff !important; }
-    body {
-      font-size: 11px;
-      line-height: 1.45;
-      color: #0C1C33;
-      -webkit-print-color-adjust: exact;
-      print-color-adjust: exact;
-      color-adjust: exact;
+
+    html, body {
+      background: #fff !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      overflow: hidden !important;
+      font-size: 10.5px !important;
+      line-height: 1.4 !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      color-adjust: exact !important;
     }
+
+    /* Force all containers to stay within page width */
+    .masthead, .masthead-inner, .wrapper,
+    .summary-bar, .section, .section-body,
+    .section-header, .card, .table-wrap,
+    .stat-grid, .stat-grid-4, .two-col, .three-col,
+    .bar-chart, .data-notice {
+      max-width: 100% !important;
+      width: 100% !important;
+    }
+
     .masthead {
       background: #ffffff !important;
       border-bottom: 3px solid #1A56DB !important;
-      padding: 16px 0 14px !important;
+      padding: 14px 0 12px !important;
       box-shadow: none !important;
-      -webkit-print-color-adjust: exact;
-      print-color-adjust: exact;
     }
-    .masthead-inner, .wrapper {
-      max-width: 100% !important;
+    .masthead-inner {
       padding: 0 !important;
       margin: 0 !important;
+      gap: 16px !important;
     }
-    .wrapper { padding: 0 !important; }
-    .masthead-title { font-size: 18px !important; }
+    .masthead-left { gap: 16px !important; }
+    .masthead-title { font-size: 15px !important; }
     .masthead-divider { display: block !important; }
+    .masthead-meta p { font-size: 10px !important; }
+
+    .wrapper {
+      padding: 0 !important;
+      margin: 0 auto !important;
+    }
+
     .summary-bar {
       grid-template-columns: repeat(4, 1fr) !important;
-      margin-top: 20px !important;
-      padding: 16px 20px !important;
+      margin-top: 16px !important;
+      padding: 14px 0 !important;
+      gap: 0 !important;
       background: #fff !important;
       border: 1px solid #D4DDE9 !important;
       border-top: 3px solid #1A56DB !important;
-      -webkit-print-color-adjust: exact;
-      print-color-adjust: exact;
     }
-    .summary-stat-value { font-size: 20px !important; }
-    .section { margin-top: 20px !important; }
-    .section-header { padding: 10px 16px !important; }
-    .section-body { padding: 14px 16px !important; }
-    .card { padding: 14px 16px !important; }
-    .summary-bar, .section, .card, .table-wrap { break-inside: avoid; }
-    .data-notice {
-      background: #EBF0FD !important;
-      -webkit-print-color-adjust: exact;
-      print-color-adjust: exact;
-    }
-    table { font-size: 10px !important; }
-    th, td { padding: 5px 8px !important; }
-    .bar-fill {
-      -webkit-print-color-adjust: exact;
-      print-color-adjust: exact;
-    }
+    .summary-stat { padding: 0 14px !important; }
+    .summary-stat:first-child { padding-left: 0 !important; }
+    .summary-stat-value { font-size: 18px !important; }
+    .summary-stat-label { font-size: 9px !important; }
+
+    .stat-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 10px !important; }
+    .stat-grid-4 { grid-template-columns: repeat(4, 1fr) !important; gap: 10px !important; }
+    .two-col { grid-template-columns: repeat(2, 1fr) !important; gap: 10px !important; }
+    .three-col { grid-template-columns: repeat(3, 1fr) !important; gap: 10px !important; }
+
+    .stat-card { padding: 10px 12px !important; }
+    .stat-value { font-size: 16px !important; }
+
+    .section { margin-top: 18px !important; }
+    .section-header { padding: 8px 14px !important; }
+    .section-body { padding: 12px 14px !important; }
+    .card { padding: 12px 14px !important; }
+
+    .summary-bar, .section, .card, .table-wrap, .stat-grid { break-inside: avoid; }
+
+    .data-notice { background: #EBF0FD !important; padding: 10px 14px !important; }
+
+    table { font-size: 9.5px !important; width: 100% !important; }
+    th, td { padding: 4px 7px !important; }
+
+    .bar-item { gap: 6px !important; font-size: 10px !important; }
+    .bar-label { font-size: 10px !important; }
+
+    .section-num { display: none !important; }
   }
 </style>
 </head>
