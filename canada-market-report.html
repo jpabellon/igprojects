@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ImportGenius — Canadian Market Report</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:          #F4F7FB;
+    --surface:     #FFFFFF;
+    --ink:         #0C1C33;
+    --ink-mid:     #3D526B;
+    --ink-muted:   #7A8FA8;
+    --border:      #D4DDE9;
+    --border-light:#E8EEF6;
+    --accent:      #1A56DB;
+    --accent-dim:  #EBF0FD;
+    --positive:    #059669;
+    --pos-dim:     #ECFDF5;
+    --negative:    #DC2626;
+    --neg-dim:     #FEF2F2;
+    --amber:       #D97706;
+    --amber-dim:   #FFFBEB;
+    --rule:        3px solid var(--accent);
+  }
+
+  html { font-size: 16px; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead {
+    background: #FFFFFF;
+    border-bottom: 3px solid var(--accent);
+    color: var(--ink);
+    padding: 28px 0 24px;
+    box-shadow: 0 2px 12px rgba(12,28,51,0.07);
+  }
+  .masthead-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .masthead-wordmark {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .masthead-left {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+  .masthead-divider {
+    width: 1px;
+    height: 52px;
+    background: var(--border);
+  }
+  .masthead-report-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 5px;
+  }
+  .masthead-title {
+    font-size: clamp(20px, 3vw, 26px);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .masthead-title span {
+    color: var(--accent);
+  }
+  .masthead-meta {
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .masthead-meta p {
+    font-size: 12px;
+    color: var(--ink-muted);
+    line-height: 1.8;
+  }
+  .masthead-meta strong {
+    color: var(--ink-mid);
+    font-weight: 600;
+  }
+
+  /* ── WRAPPER ── */
+  .wrapper {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 40px 80px;
+  }
+
+  /* ── SUMMARY BAR ── */
+  .summary-bar {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: var(--rule);
+    padding: 28px 32px;
+    margin-top: 36px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+  .summary-stat {
+    padding: 0 24px;
+    border-right: 1px solid var(--border-light);
+  }
+  .summary-stat:first-child { padding-left: 0; }
+  .summary-stat:last-child { border-right: none; }
+  .summary-stat-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-muted);
+    margin-bottom: 6px;
+  }
+  .summary-stat-value {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .summary-stat-sub {
+    font-size: 12px;
+    color: var(--ink-muted);
+    margin-top: 4px;
+  }
+
+  /* ── DATA NOTICE ── */
+  .data-notice {
+    background: var(--amber-dim);
+    border: 1px solid #FDE68A;
+    border-left: 3px solid var(--amber);
+    padding: 12px 16px;
+    margin-top: 20px;
+    font-size: 13px;
+    color: #78350F;
+  }
+  .data-notice strong { font-weight: 600; }
+
+  /* ── SECTION ── */
+  .section {
+    margin-top: 52px;
+    position: relative;
+  }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .section-num {
+    font-size: 64px;
+    font-weight: 900;
+    line-height: 0.8;
+    color: var(--border-light);
+    letter-spacing: -0.04em;
+    position: absolute;
+    right: 0;
+    top: -10px;
+    font-variant-numeric: tabular-nums;
+    user-select: none;
+  }
+  .section-eyebrow {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    border-left: var(--rule);
+    padding-left: 10px;
+    line-height: 1;
+  }
+  .section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+
+  /* ── STAT GRID ── */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .stat-grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .stat-grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px 20px 18px;
+  }
+  .stat-card-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-muted);
+    margin-bottom: 8px;
+  }
+  .stat-card-value {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+  .stat-card-value.accent { color: var(--accent); }
+  .stat-card-value.positive { color: var(--positive); }
+  .stat-card-value.negative { color: var(--negative); }
+  .stat-card-value.amber { color: var(--amber); }
+  .stat-card-note {
+    font-size: 12px;
+    color: var(--ink-muted);
+    margin-top: 6px;
+    line-height: 1.4;
+  }
+
+  /* ── BADGE ── */
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 2px;
+    font-variant-numeric: tabular-nums;
+  }
+  .badge-pos { background: var(--pos-dim); color: var(--positive); }
+  .badge-neg { background: var(--neg-dim); color: var(--negative); }
+  .badge-amber { background: var(--amber-dim); color: var(--amber); }
+  .badge-accent { background: var(--accent-dim); color: var(--accent); }
+  .badge-neutral { background: var(--bg); color: var(--ink-mid); }
+
+  /* ── TABLE ── */
+  .table-wrap { overflow-x: auto; margin-top: 4px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    font-variant-numeric: tabular-nums;
+  }
+  thead th {
+    text-align: left;
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--ink-muted);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 14px;
+    background: var(--bg);
+    white-space: nowrap;
+  }
+  thead th.right { text-align: right; }
+  tbody tr:nth-child(even) td { background: #FAFCFF; }
+  tbody tr:hover td { background: var(--accent-dim); }
+  tbody td {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--border-light);
+    color: var(--ink);
+    vertical-align: middle;
+  }
+  tbody td.right { text-align: right; }
+  tbody td.muted { color: var(--ink-muted); font-size: 12.5px; }
+  .rank-num {
+    color: var(--ink-muted);
+    font-size: 12px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ── TWO-COL LAYOUT ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 4px;
+  }
+  .three-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    margin-top: 4px;
+  }
+
+  /* ── COMPARISON TABLE (win rate) ── */
+  .compare-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .compare-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    background: var(--ink);
+    color: #fff;
+  }
+  .compare-header div {
+    padding: 12px 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .compare-header div:not(:first-child) { text-align: center; border-left: 1px solid rgba(255,255,255,0.1); }
+  .compare-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-bottom: 1px solid var(--border-light);
+  }
+  .compare-row:last-child { border-bottom: none; }
+  .compare-row div {
+    padding: 14px 20px;
+    font-size: 14px;
+    font-variant-numeric: tabular-nums;
+  }
+  .compare-row div:not(:first-child) { text-align: center; border-left: 1px solid var(--border-light); }
+  .compare-row div:first-child { font-weight: 600; color: var(--ink-mid); font-size: 13px; }
+  .compare-row.highlight { background: var(--accent-dim); }
+  .compare-row.highlight div:first-child { color: var(--accent); }
+  .big-pct {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  /* ── BAR CHART ── */
+  .bar-list { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+  .bar-item { display: grid; grid-template-columns: 140px 1fr 52px; align-items: center; gap: 12px; }
+  .bar-label { font-size: 13px; font-weight: 500; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bar-track { background: var(--bg); height: 8px; border-radius: 0; overflow: hidden; border: 1px solid var(--border-light); }
+  .bar-fill { height: 100%; background: var(--accent); transition: width 0.3s; }
+  .bar-fill.green { background: var(--positive); }
+  .bar-fill.amber { background: var(--amber); }
+  .bar-value { font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums; text-align: right; color: var(--ink-mid); }
+
+  /* ── LEAD SOURCE TABLE ── */
+  .source-grid { display: flex; flex-direction: column; gap: 0; margin-top: 4px; border: 1px solid var(--border); overflow: hidden; }
+  .source-row {
+    display: grid;
+    grid-template-columns: 1fr 80px 80px;
+    padding: 10px 16px;
+    align-items: center;
+    border-bottom: 1px solid var(--border-light);
+    background: var(--surface);
+    font-size: 13.5px;
+    gap: 12px;
+  }
+  .source-row:last-child { border-bottom: none; }
+  .source-row:nth-child(even) { background: #FAFCFF; }
+  .source-name { font-weight: 500; color: var(--ink); }
+  .source-count { font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
+  .source-pct { text-align: right; color: var(--ink-muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+  .source-header {
+    display: grid;
+    grid-template-columns: 1fr 80px 80px;
+    padding: 8px 16px;
+    background: var(--ink);
+    color: #fff;
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    gap: 12px;
+  }
+  .source-header span:not(:first-child) { text-align: right; }
+
+  /* ── INSIGHT BOX ── */
+  .insight {
+    background: var(--accent-dim);
+    border-left: var(--rule);
+    padding: 14px 18px;
+    font-size: 13.5px;
+    color: var(--ink);
+    line-height: 1.6;
+    margin-top: 16px;
+  }
+  .insight strong { color: var(--accent); }
+
+  /* ── LIMITATION BOX ── */
+  .limitation {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--ink-muted);
+    padding: 12px 16px;
+    font-size: 12.5px;
+    color: var(--ink-muted);
+    margin-top: 16px;
+    line-height: 1.6;
+  }
+
+  /* ── STATUS PILL ── */
+  .pill {
+    display: inline-block;
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .pill-active { background: var(--pos-dim); color: var(--positive); }
+  .pill-expired { background: var(--amber-dim); color: var(--amber); }
+  .pill-null { background: var(--bg); color: var(--ink-muted); border: 1px solid var(--border); }
+
+  /* ── FOOTER ── */
+  .footer {
+    margin-top: 60px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .footer p {
+    font-size: 11.5px;
+    color: var(--ink-muted);
+  }
+
+  @media (max-width: 700px) {
+    .wrapper { padding: 0 20px 60px; }
+    .masthead-inner { padding: 0 20px; flex-direction: column; align-items: flex-start; gap: 16px; }
+    .masthead-left { flex-wrap: wrap; gap: 14px; }
+    .masthead-divider { display: none; }
+    .masthead-meta { text-align: left; }
+    .summary-bar { grid-template-columns: 1fr 1fr; gap: 16px; }
+    .summary-stat { border-right: none; padding: 0; }
+    .stat-grid, .stat-grid-4 { grid-template-columns: 1fr 1fr; }
+    .two-col, .three-col { grid-template-columns: 1fr; }
+    .bar-item { grid-template-columns: 110px 1fr 44px; }
+    .section-num { display: none; }
+  }
+
+  /* ── PDF BUTTON ── */
+  .pdf-btn {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 22px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(26,86,219,0.35);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 1000;
+    letter-spacing: 0.02em;
+    transition: background 0.15s;
+  }
+  .pdf-btn:hover { background: #1648b8; }
+
+  /* ── LOGO ── */
+  .masthead-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  /* ── PRINT / PDF ── */
+  @page {
+    size: A4 portrait;
+    margin: 1in;
+  }
+  @media print {
+    .pdf-btn { display: none !important; }
+    html, body { background: #fff !important; }
+    body {
+      font-size: 11px;
+      line-height: 1.45;
+      color: #0C1C33;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      color-adjust: exact;
+    }
+    .masthead {
+      background: #ffffff !important;
+      border-bottom: 3px solid #1A56DB !important;
+      padding: 16px 0 14px !important;
+      box-shadow: none !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .masthead-inner, .wrapper {
+      max-width: 100% !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+    .wrapper { padding: 0 !important; }
+    .masthead-title { font-size: 18px !important; }
+    .masthead-divider { display: block !important; }
+    .summary-bar {
+      grid-template-columns: repeat(4, 1fr) !important;
+      margin-top: 20px !important;
+      padding: 16px 20px !important;
+      background: #fff !important;
+      border: 1px solid #D4DDE9 !important;
+      border-top: 3px solid #1A56DB !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .summary-stat-value { font-size: 20px !important; }
+    .section { margin-top: 20px !important; }
+    .section-header { padding: 10px 16px !important; }
+    .section-body { padding: 14px 16px !important; }
+    .card { padding: 14px 16px !important; }
+    .summary-bar, .section, .card, .table-wrap { break-inside: avoid; }
+    .data-notice {
+      background: #EBF0FD !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    table { font-size: 10px !important; }
+    th, td { padding: 5px 8px !important; }
+    .bar-fill {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="masthead-inner">
+    <div class="masthead-left">
+      <svg width="220" height="43" viewBox="0 0 165 32" xmlns="http://www.w3.org/2000/svg" aria-label="ImportGenius"><g fill="none" fill-rule="evenodd"><path fill="#104598" d="M31.611 8.153h3.603V23.96h-3.603zm5.486 7.997c0-1.43-.047-2.65-.094-3.658h3.014l.165 1.548h.07c.495-.727 1.508-1.806 3.486-1.806 1.483 0 2.66.75 3.155 1.947h.047a5.14 5.14 0 011.483-1.384c.636-.375 1.343-.563 2.19-.563 2.214 0 3.886 1.548 3.886 4.972v6.754h-3.485v-6.238c0-1.665-.542-2.627-1.696-2.627-.824 0-1.413.563-1.648 1.243a2.968 2.968 0 00-.141.915v6.707h-3.485v-6.426c0-1.454-.518-2.439-1.648-2.439-.92 0-1.46.704-1.673 1.29-.117.282-.14.61-.14.891v6.684h-3.486v-7.81zm22.653 2.885c0 .281.023.54.07.75.235.962 1.06 1.69 2.096 1.69 1.554 0 2.472-1.29 2.472-3.237 0-1.83-.824-3.213-2.425-3.213-1.013 0-1.908.75-2.143 1.806-.047.187-.07.422-.07.633v1.571zm-3.58-2.697c0-1.5-.047-2.79-.094-3.846h3.108l.165 1.595h.047c.848-1.22 2.166-1.853 3.838-1.853 2.52 0 4.78 2.181 4.78 5.84 0 4.174-2.66 6.144-5.227 6.144-1.39 0-2.473-.563-2.99-1.313h-.048v5.698H56.17V16.338zm16.012 1.876c0 1.97.824 3.448 2.355 3.448 1.389 0 2.284-1.384 2.284-3.448 0-1.712-.66-3.447-2.284-3.447-1.72 0-2.355 1.759-2.355 3.447zm8.335-.117c0 4.198-2.99 6.12-6.075 6.12-3.367 0-5.957-2.203-5.957-5.909 0-3.705 2.45-6.074 6.146-6.074 3.532 0 5.886 2.416 5.886 5.863zm1.037-1.829c0-1.689-.047-2.79-.095-3.776h3.085l.118 2.11h.094c.589-1.664 2.002-2.368 3.108-2.368.33 0 .495 0 .754.047v3.354a5.151 5.151 0 00-.966-.094c-1.318 0-2.213.703-2.449 1.806-.047.234-.07.516-.07.797v5.816h-3.58v-7.692zm13.154-7.059v3.283h2.567v2.627h-2.567v4.15c0 1.384.33 2.018 1.413 2.018.448 0 .8-.047 1.06-.094l.023 2.697c-.47.187-1.318.304-2.33.304-1.155 0-2.12-.398-2.685-.984-.66-.68-.989-1.783-.989-3.401v-4.69h-1.53v-2.627h1.53v-2.486l3.508-.797z"/><path d="M112.472 23.478c-1.106.375-3.202.89-5.298.89-2.896 0-4.992-.726-6.451-2.133-1.46-1.36-2.26-3.424-2.237-5.746.023-5.253 3.861-8.255 9.065-8.255 2.049 0 3.626.399 4.403.774l-.753 2.86c-.871-.374-1.955-.679-3.697-.679-2.99 0-5.251 1.688-5.251 5.112 0 3.26 2.049 5.183 4.992 5.183.824 0 1.484-.094 1.766-.234v-3.307h-2.449v-2.79h5.91v8.325zm8.618-6.308c0-.869-.376-2.323-2.025-2.323-1.507 0-2.119 1.36-2.213 2.322h4.238zm-4.215 2.438c.118 1.477 1.578 2.181 3.25 2.181 1.224 0 2.213-.164 3.178-.47l.472 2.417c-1.178.469-2.614.703-4.168.703-3.909 0-6.146-2.251-6.146-5.84 0-2.907 1.813-6.12 5.816-6.12 3.72 0 5.133 2.884 5.133 5.722 0 .61-.07 1.15-.117 1.407h-7.418zm8.502-3.213c0-1.43-.048-2.65-.095-3.658h3.108l.165 1.571h.07c.472-.727 1.65-1.83 3.556-1.83 2.355 0 4.121 1.549 4.121 4.926v6.8h-3.579V17.85c0-1.477-.518-2.486-1.813-2.486-.99 0-1.578.68-1.813 1.337-.094.211-.142.563-.142.891v6.614h-3.578v-7.81zm12.621 7.81V12.737h3.579v11.468h-3.58zm3.696-14.658c0 .985-.753 1.783-1.93 1.783-1.131 0-1.884-.798-1.86-1.783-.024-1.032.729-1.805 1.883-1.805s1.884.773 1.907 1.805zm12.433 10.976c0 1.5.047 2.72.094 3.682h-3.108l-.165-1.619h-.07c-.448.704-1.531 1.877-3.603 1.877-2.331 0-4.05-1.454-4.05-4.996v-6.73h3.602v6.168c0 1.665.542 2.673 1.79 2.673.989 0 1.554-.68 1.79-1.243.094-.21.117-.492.117-.774v-6.824h3.603v7.786zm1.673.562c.658.4 2.024.868 3.083.868 1.084 0 1.53-.375 1.53-.961s-.352-.868-1.694-1.314c-2.379-.797-3.297-2.087-3.273-3.447 0-2.134 1.836-3.752 4.685-3.752 1.343 0 2.543.305 3.25.656l-.636 2.463c-.518-.282-1.507-.657-2.496-.657-.871 0-1.366.352-1.366.938 0 .54.448.821 1.86 1.314 2.19.75 3.109 1.852 3.132 3.54 0 2.135-1.695 3.706-4.992 3.706-1.506 0-2.849-.328-3.72-.797l.636-2.557z" fill="#344050"/><path d="M15.926 23.587H7.619c-.734 0-1.332-.826-1.37-1.866C2.573 19.783.073 15.972.073 11.587.073 5.239 5.311.092 11.773.092c6.46 0 11.699 5.147 11.699 11.495 0 4.385-2.5 8.196-6.177 10.134-.038 1.04-.635 1.866-1.37 1.866z" fill="#104598"/><path d="M7.438 29.344l-.517-.56-.015-2.642 9.728 1.575.005.915-.535.592-8.666.12zm9.201-2.475L6.911 25.35l-.005-.9c-.004-.505.408-.458.408-.458l8.942-.051c.366-.002.368.399.368.399l.015 2.53zm-8.211 3.093l6.69.033-1.39 1.54-3.827.02-1.473-1.593z" fill="#344050"/><path d="M19.898 10.63H15.16v2.208h1.964v2.615c-.227.11-.755.185-1.416.185-2.36 0-4.002-1.52-4.002-4.099 0-2.707 1.812-4.042 4.21-4.042 1.396 0 2.265.24 2.963.537l.604-2.262c-.623-.297-1.887-.612-3.53-.612-4.171 0-7.248 2.374-7.267 6.528-.019 1.836.623 3.468 1.793 4.543 1.17 1.113 2.85 1.688 5.172 1.688 1.68 0 3.36-.408 4.247-.705v-6.583zM3.892 5.29H6.78v12.5H3.892z" fill="#FFF"/></g></svg>
+
+      <div class="masthead-divider"></div>
+
+      <div>
+        <div class="masthead-report-label">Market Intelligence</div>
+        <h1 class="masthead-title">Canadian Market <span>Analysis Report</span></h1>
+      </div>
+    </div>
+    <div class="masthead-meta">
+      <p><strong>Report Date</strong><br>June 24, 2026</p>
+      <p style="margin-top:10px"><strong>Data Source</strong><br>Zoho CRM</p>
+      <p style="margin-top:10px"><strong>Period</strong><br>LTM: Jun 2025 – Jun 2026</p>
+    </div>
+  </div>
+</div>
+
+<div class="wrapper">
+
+  <!-- TOP-LINE SUMMARY -->
+  <div class="summary-bar">
+    <div class="summary-stat">
+      <div class="summary-stat-label">Active Billing Accounts (CA)</div>
+      <div class="summary-stat-value">104</div>
+      <div class="summary-stat-sub">Recurly confirmed paying customers</div>
+    </div>
+    <div class="summary-stat">
+      <div class="summary-stat-label">Total CA ARR</div>
+      <div class="summary-stat-value">$242K</div>
+      <div class="summary-stat-sub">1.8% of $13.2M global ARR</div>
+    </div>
+    <div class="summary-stat">
+      <div class="summary-stat-label">CA Closed-Won Rate</div>
+      <div class="summary-stat-value">94.8%</div>
+      <div class="summary-stat-sub">vs. 93.7% overall (Zoho CRM)</div>
+    </div>
+    <div class="summary-stat">
+      <div class="summary-stat-label">CA Leads (LTM)</div>
+      <div class="summary-stat-value">700+</div>
+      <div class="summary-stat-sub">600 confirmed, est. 700–900</div>
+    </div>
+  </div>
+
+  <div class="data-notice">
+    <strong>Data Sources:</strong> Zoho CRM (June 24, 2026) for leads, deals, and full account history. Recurly accounts + subscriptions exports for confirmed billing data: 104 CA accounts, 107 active subscriptions, <strong>$242,192 total CA ARR</strong>.
+  </div>
+
+
+  <!-- ═══════════════════════════════ RECURLY DATA ════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <div class="section-eyebrow">Recurly Billing Data</div>
+        <div class="section-title">ARR, Plan Mix &amp; Active Subscriptions — Canada</div>
+      </div>
+      <div class="section-num" style="color:#E0E8F4;font-size:48px">R</div>
+    </div>
+
+    <div style="background:var(--pos-dim);border:1px solid #A7F3D0;border-left:3px solid var(--positive);padding:14px 18px;font-size:13.5px;color:#065F46;margin-bottom:20px;line-height:1.6;">
+      <strong>Source:</strong> Recurly accounts export (104 CA accounts) + subscriptions export (5,877 live subscriptions globally, 107 matched to CA). ARR calculated from <code>total_recurring_amount</code> annualised by billing period length.
+    </div>
+
+    <!-- Top-line ARR stats -->
+    <div class="stat-grid stat-grid-4">
+      <div class="stat-card">
+        <div class="stat-card-label">Total CA ARR</div>
+        <div class="stat-card-value positive">$242,192</div>
+        <div class="stat-card-note">107 active subscriptions across 104 accounts</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">CA % of Global ARR</div>
+        <div class="stat-card-value accent">1.8%</div>
+        <div class="stat-card-note">Global ARR: $13,247,627</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Avg ARR / CA Account</div>
+        <div class="stat-card-value accent">$2,329</div>
+        <div class="stat-card-note">$242,192 ÷ 104 accounts</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">CA Monthly Recurring</div>
+        <div class="stat-card-value accent">$20,183</div>
+        <div class="stat-card-note">Total CA ARR ÷ 12</div>
+      </div>
+    </div>
+
+    <!-- Plan breakdown -->
+    <div style="margin-top:28px;">
+      <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-muted);margin-bottom:14px;">Plan Type Breakdown — Canadian Subscriptions</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Plan Name</th>
+              <th class="right">CA Subs</th>
+              <th class="right">CA ARR</th>
+              <th class="right">Avg ARR / Sub</th>
+              <th class="right">Global Subs</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Plus</strong></td><td class="right">41</td><td class="right">$97,428</td><td class="right">$2,376</td><td class="right">—</td></tr>
+            <tr><td>Standard $199</td><td class="right">18</td><td class="right">$30,445</td><td class="right">$1,691</td><td class="right">—</td></tr>
+            <tr><td>Premium</td><td class="right">7</td><td class="right">$28,728</td><td class="right">$4,104</td><td class="right">—</td></tr>
+            <tr><td>USA Essentials Flex</td><td class="right">8</td><td class="right">$20,556</td><td class="right">$2,570</td><td class="right">—</td></tr>
+            <tr><td>Essentials Annual</td><td class="right">9</td><td class="right">$12,820</td><td class="right">$1,424</td><td class="right">—</td></tr>
+            <tr><td>USA Pro Annual</td><td class="right">4</td><td class="right">$7,190</td><td class="right">$1,798</td><td class="right">—</td></tr>
+            <tr><td>North American Pro Annual</td><td class="right">2</td><td class="right">$5,988</td><td class="right">$2,994</td><td class="right">—</td></tr>
+            <tr><td>American Pro / Non-US 12mo</td><td class="right">2</td><td class="right">$9,576</td><td class="right">$4,788</td><td class="right">—</td></tr>
+            <tr><td>Essentials / Essentials Flex</td><td class="right">6</td><td class="right">$10,164</td><td class="right">$1,694</td><td class="right">—</td></tr>
+            <tr><td>Enterprise $399 / v.2025</td><td class="right">4</td><td class="right">$4,535</td><td class="right">$1,134</td><td class="right">—</td></tr>
+            <tr><td>Starter Upgraded / Other</td><td class="right">6</td><td class="right">$14,762</td><td class="right">$2,460</td><td class="right">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="insight" style="margin-top:12px;">
+        <strong>Plus plan dominates</strong> — 41 of 107 CA subscriptions (38%) accounting for ~40% of CA ARR. Premium has the highest average ARR per subscription at $4,104. Standard $199 is the most common entry-point plan.
+      </div>
+    </div>
+
+    <!-- Top 50 by ARR -->
+    <div style="margin-top:28px;">
+      <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-muted);margin-bottom:14px;">Top 50 Canadian Accounts by ARR (Recurly)</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:32px">#</th>
+              <th>Account / Company</th>
+              <th>Province</th>
+              <th>Plan(s)</th>
+              <th class="right">ARR</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="rank-num">1</td><td>Saskatchewan Trade and Export Partnership</td><td>SK</td><td>North American Pro Annual</td><td class="right">$5,988</td></tr>
+            <tr><td class="rank-num">2</td><td>Varigate Technologies Inc.</td><td>—</td><td>Premium, Non US 12 Month</td><td class="right">$4,788</td></tr>
+            <tr><td class="rank-num">3</td><td>Samuel, Son &amp; Co., Limited</td><td>—</td><td>Premium</td><td class="right">$4,788</td></tr>
+            <tr><td class="rank-num">4</td><td>Inter Continental Gear &amp; Brake Inc.</td><td>ON</td><td>Premium</td><td class="right">$4,788</td></tr>
+            <tr><td class="rank-num">5</td><td>Mastro Group</td><td>ON</td><td>Premium</td><td class="right">$4,788</td></tr>
+            <tr><td class="rank-num">6</td><td>batten</td><td>BC</td><td>Premium</td><td class="right">$4,788</td></tr>
+            <tr><td class="rank-num">7</td><td>Canimex Inc.</td><td>QC</td><td>Premium</td><td class="right">$4,788</td></tr>
+            <tr><td class="rank-num">8</td><td>Duropac</td><td>—</td><td>Premium</td><td class="right">$4,788</td></tr>
+            <tr><td class="rank-num">9</td><td>Manyan Inc</td><td>QC</td><td>American Pro</td><td class="right">$4,788</td></tr>
+            <tr><td class="rank-num">10</td><td>Mastronardi Produce USA</td><td>—</td><td>USA Pro + MX Annual</td><td class="right">$4,788</td></tr>
+            <tr><td class="rank-num">11</td><td>LightMachinery Inc</td><td>—</td><td>Non US 1 Month, Plus</td><td class="right">$4,776</td></tr>
+            <tr><td class="rank-num">12</td><td>jeetauto</td><td>—</td><td>Non US 1 Month, Plus</td><td class="right">$4,776</td></tr>
+            <tr><td class="rank-num">13</td><td>AUTOMOTY CANADA LTD</td><td>—</td><td>USA Pro Annual</td><td class="right">$4,310</td></tr>
+            <tr><td class="rank-num">14</td><td>Freightplus Worldwide Ltd</td><td>ON</td><td>Standard $199</td><td class="right">$3,032</td></tr>
+            <tr><td class="rank-num">15</td><td>Shashi Foods</td><td>ON</td><td>Standard $199</td><td class="right">$3,032</td></tr>
+            <tr><td class="rank-num">16</td><td>TCI Manufacturing Inc. - Master</td><td>NB</td><td>USA Pro Annual</td><td class="right">$2,880</td></tr>
+            <tr><td class="rank-num">17</td><td>MARINO</td><td>ON</td><td>USA Essentials Flex</td><td class="right">$2,748</td></tr>
+            <tr><td class="rank-num">18</td><td>Elte</td><td>ON</td><td>USA Essentials Flex</td><td class="right">$2,748</td></tr>
+            <tr><td class="rank-num">19</td><td>Simtex Textiles Inc</td><td>ON</td><td>USA Essentials Flex</td><td class="right">$2,748</td></tr>
+            <tr><td class="rank-num">20</td><td>VF</td><td>—</td><td>USA Essentials Flex</td><td class="right">$2,748</td></tr>
+            <tr><td class="rank-num">21</td><td>Bestway Canada</td><td>—</td><td>USA Essentials Flex</td><td class="right">$2,748</td></tr>
+            <tr><td class="rank-num">22</td><td>Delphi Display Systems Canada</td><td>—</td><td>USA Essentials Flex</td><td class="right">$2,748</td></tr>
+            <tr><td class="rank-num">23</td><td>Wolseley Canada</td><td>—</td><td>USA Essentials Flex</td><td class="right">$2,748</td></tr>
+            <tr><td class="rank-num">24</td><td>Wallboard Trim &amp; Tool Inc</td><td>ON</td><td>Plus</td><td class="right">$2,388</td></tr>
+            <tr><td class="rank-num">25</td><td>Essentials Flex accounts (×1)</td><td>—</td><td>Essentials Flex</td><td class="right">$2,388</td></tr>
+            <tr><td class="rank-num">26</td><td>Starter Upgraded accounts</td><td>—</td><td>Starter Upgraded</td><td class="right">$1,788</td></tr>
+            <tr><td class="rank-num">27–50</td><td colspan="3" class="muted">Remaining accounts on Essentials Annual ($1,500/yr), Standard $199 ($1,500–$2,388/yr), and Plus monthly ($1,910–$2,388/yr)</td><td class="right muted">$1,500–$1,910 ea.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Province breakdown -->
+    <div style="margin-top:28px;">
+      <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-muted);margin-bottom:14px;">Province Breakdown — Recurly Active Accounts</div>
+      <div class="two-col">
+        <div class="bar-list">
+          <div class="bar-item"><div class="bar-label">Ontario</div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><div class="bar-value">23</div></div>
+          <div class="bar-item"><div class="bar-label">Quebec</div><div class="bar-track"><div class="bar-fill" style="width:73.9%"></div></div><div class="bar-value">17</div></div>
+          <div class="bar-item"><div class="bar-label">British Columbia</div><div class="bar-track"><div class="bar-fill" style="width:30.4%"></div></div><div class="bar-value">7</div></div>
+          <div class="bar-item"><div class="bar-label">New Brunswick</div><div class="bar-track"><div class="bar-fill green" style="width:13.0%"></div></div><div class="bar-value">3</div></div>
+        </div>
+        <div class="bar-list">
+          <div class="bar-item"><div class="bar-label">Saskatchewan</div><div class="bar-track"><div class="bar-fill green" style="width:13.0%"></div></div><div class="bar-value">3</div></div>
+          <div class="bar-item"><div class="bar-label">Nova Scotia</div><div class="bar-track"><div class="bar-fill green" style="width:8.7%"></div></div><div class="bar-value">2</div></div>
+          <div class="bar-item"><div class="bar-label">Alberta</div><div class="bar-track"><div class="bar-fill green" style="width:8.7%"></div></div><div class="bar-value">2</div></div>
+          <div class="bar-item"><div class="bar-label">Blank / Unknown</div><div class="bar-track"><div class="bar-fill amber" style="width:100%"></div></div><div class="bar-value">47</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Account Manager & vintage side by side -->
+    <div class="two-col" style="margin-top:28px;">
+      <div>
+        <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-muted);margin-bottom:12px;">Account Manager Coverage</div>
+        <div class="source-grid">
+          <div class="source-header"><span>Account Manager</span><span style="text-align:right">Accts</span><span style="text-align:right">Share</span></div>
+          <div class="source-row"><div class="source-name" style="color:var(--negative)">(Unassigned)</div><div class="source-count" style="color:var(--negative)">32</div><div class="source-pct">30.8%</div></div>
+          <div class="source-row"><div class="source-name">cody@</div><div class="source-count">19</div><div class="source-pct">18.3%</div></div>
+          <div class="source-row"><div class="source-name">moharra@</div><div class="source-count">15</div><div class="source-pct">14.4%</div></div>
+          <div class="source-row"><div class="source-name">bryanne@</div><div class="source-count">12</div><div class="source-pct">11.5%</div></div>
+          <div class="source-row"><div class="source-name">casey@</div><div class="source-count">11</div><div class="source-pct">10.6%</div></div>
+          <div class="source-row"><div class="source-name">bruce@</div><div class="source-count">7</div><div class="source-pct">6.7%</div></div>
+          <div class="source-row"><div class="source-name">bryan@</div><div class="source-count">6</div><div class="source-pct">5.8%</div></div>
+          <div class="source-row"><div class="source-name">bret@</div><div class="source-count">2</div><div class="source-pct">1.9%</div></div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-muted);margin-bottom:12px;">Account Creation Year</div>
+        <div class="bar-list">
+          <div class="bar-item"><div class="bar-label">2021</div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><div class="bar-value">77</div></div>
+          <div class="bar-item"><div class="bar-label">2022</div><div class="bar-track"><div class="bar-fill" style="width:2.6%"></div></div><div class="bar-value">2</div></div>
+          <div class="bar-item"><div class="bar-label">2023</div><div class="bar-track"><div class="bar-fill green" style="width:14.3%"></div></div><div class="bar-value">11</div></div>
+          <div class="bar-item"><div class="bar-label">2024</div><div class="bar-track"><div class="bar-fill green" style="width:18.2%"></div></div><div class="bar-value">14</div></div>
+        </div>
+        <div class="limitation" style="margin-top:10px;">74% of accounts created in 2021 — likely a data migration. 2023–2024 added 25 net-new CA accounts.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════════════════ SECTION 1 ═══════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <div class="section-eyebrow">Section 01</div>
+        <div class="section-title">Current Customer Base</div>
+      </div>
+      <div class="section-num">01</div>
+    </div>
+
+    <div class="stat-grid stat-grid-4">
+      <div class="stat-card">
+        <div class="stat-card-label">Total CA Customers</div>
+        <div class="stat-card-value accent">500</div>
+        <div class="stat-card-note">Billing_Country = "Canada"<br>Account_Type = "Customer"</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">CA Prospects</div>
+        <div class="stat-card-value">22</div>
+        <div class="stat-card-note">Not yet converted to customer</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">CA w/ Active Status</div>
+        <div class="stat-card-value positive">213</div>
+        <div class="stat-card-note">~43% — 287 have null Subscription_Status (older records)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">CA Expired/Cancelled</div>
+        <div class="stat-card-value negative">1</div>
+        <div class="stat-card-note">TM Wholesale — Expired. 0 Cancelled.</div>
+      </div>
+    </div>
+
+    <!-- ARR Note -->
+    <div style="background:var(--surface);border:1px solid var(--border);padding:20px 24px;margin-top:4px;">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-muted);margin-bottom:12px;">Subscription ARR — Data Limitation</div>
+      <p style="font-size:13.5px;color:var(--ink);line-height:1.7;">Zoho CRM does not store per-customer subscription ARR as a discrete field. The <strong>Annual_Revenue</strong> field captures the account's <em>company revenue</em> (e.g. Canada Revenue Agency: $447.8B), not what they pay ImportGenius. Closed-won deal amounts for Canadian accounts over the last 12 months total approximately <strong>$120,000–$135,000</strong>, representing contract value at close — the closest available ARR proxy in CRM. For accurate subscription ARR, cross-reference with Recurly billing data.</p>
+    </div>
+
+    <!-- Province Breakdown -->
+    <div style="margin-top:24px;">
+      <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-muted);margin-bottom:14px;">Breakdown by Province</div>
+      <div class="two-col">
+        <div class="bar-list">
+          <div class="bar-item">
+            <div class="bar-label">Ontario</div>
+            <div class="bar-track"><div class="bar-fill" style="width:87.2%"></div></div>
+            <div class="bar-value">218</div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-label">Quebec</div>
+            <div class="bar-track"><div class="bar-fill" style="width:41.2%"></div></div>
+            <div class="bar-value">103</div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-label">British Columbia</div>
+            <div class="bar-track"><div class="bar-fill" style="width:31.6%"></div></div>
+            <div class="bar-value">79</div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-label">Alberta</div>
+            <div class="bar-track"><div class="bar-fill" style="width:14.8%"></div></div>
+            <div class="bar-value">37</div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-label">Manitoba</div>
+            <div class="bar-track"><div class="bar-fill green" style="width:4.4%"></div></div>
+            <div class="bar-value">11</div>
+          </div>
+        </div>
+        <div class="bar-list">
+          <div class="bar-item">
+            <div class="bar-label">Saskatchewan</div>
+            <div class="bar-track"><div class="bar-fill green" style="width:4.0%"></div></div>
+            <div class="bar-value">10</div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-label">Nova Scotia</div>
+            <div class="bar-track"><div class="bar-fill green" style="width:2.0%"></div></div>
+            <div class="bar-value">5</div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-label">New Brunswick</div>
+            <div class="bar-track"><div class="bar-fill green" style="width:2.0%"></div></div>
+            <div class="bar-value">5</div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-label">Blank / Uncoded</div>
+            <div class="bar-track"><div class="bar-fill amber" style="width:15.2%"></div></div>
+            <div class="bar-value">38</div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-label">Miscoded (US states)</div>
+            <div class="bar-track"><div class="bar-fill amber" style="width:5.6%"></div></div>
+            <div class="bar-value">14</div>
+          </div>
+        </div>
+      </div>
+      <div class="insight" style="margin-top:14px;">
+        <strong>Ontario dominates</strong> at 43.6% of Canadian customers. Quebec (20.6%) and BC (15.8%) round out the top three. ~10% of records have missing or miscoded province data — data cleanup recommended.
+      </div>
+    </div>
+
+    <!-- Plan Type Breakdown -->
+    <div style="margin-top:28px;">
+      <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-muted);margin-bottom:14px;">Breakdown by Plan Type (from Deal Name Analysis)</div>
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-card-label">Essentials</div>
+          <div class="stat-card-value accent">~$199/mo</div>
+          <div class="stat-card-note">Most common plan. $199/mo or $1,500/yr</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-label">Premium / Plus</div>
+          <div class="stat-card-value accent">~$399–$1,500</div>
+          <div class="stat-card-note">Mid-tier. Includes Plus ($1,015–$1,500) and Premium ($399)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-label">American Pro / Enterprise</div>
+          <div class="stat-card-value accent">$4,788+</div>
+          <div class="stat-card-note">Higher-tier. American Pro at $4,788–$6,000; enterprise custom up to $34K</div>
+        </div>
+      </div>
+      <div class="limitation">No dedicated "Plan_Type" field exists on Account records in Zoho CRM. Plan tiers are inferred from deal names and amounts. For a precise plan-by-plan breakdown, cross-reference with Recurly subscription data.</div>
+    </div>
+
+  </div><!-- /section 1 -->
+
+
+  <!-- ═══════════════════════════════ SECTION 2 ═══════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <div class="section-eyebrow">Section 02</div>
+        <div class="section-title">Top 50 Canadian Customers by Deal Value</div>
+      </div>
+      <div class="section-num">02</div>
+    </div>
+
+    <div class="limitation" style="margin-top:0;margin-bottom:16px;"><strong>Note on "Annual Revenue" field:</strong> Zoho CRM's <code>Annual_Revenue</code> stores each account's total <em>company revenue</em> — not what they pay ImportGenius. Canada Revenue Agency appears at #1 with $447.8B in government budget. These figures reflect organizational scale, not subscription value. For subscription ARR, cross-reference with Recurly.</div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:36px">#</th>
+            <th>Account Name</th>
+            <th>Province</th>
+            <th>Type</th>
+            <th class="right">Company Annual Revenue</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="rank-num">1</td><td>Canada Revenue Agency</td><td>Ottawa</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$447,800,000,000</td></tr>
+          <tr><td class="rank-num">2</td><td>Sumitomo Canada Limited</td><td>Ontario</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$51,263,000,000</td></tr>
+          <tr><td class="rank-num">3</td><td>apollocorp</td><td>Ontario</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$32,644,000,000</td></tr>
+          <tr><td class="rank-num">4</td><td>Xinyi Auto Glass (NA)</td><td>Ontario</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$26,798,500,000</td></tr>
+          <tr><td class="rank-num">5</td><td>Groupe SEB Professional</td><td>Ontario</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$8,530,000,000</td></tr>
+          <tr><td class="rank-num">6</td><td>Icon Office Environments</td><td>Ontario</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$8,120,200,000</td></tr>
+          <tr><td class="rank-num">7</td><td>Thomson Reuters</td><td>Ontario</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$6,794,000,000</td></tr>
+          <tr><td class="rank-num">8</td><td>Le Grenier d'Art</td><td>Quebec</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$4,600,000,000</td></tr>
+          <tr><td class="rank-num">9</td><td>Colliers</td><td>Ontario</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$4,400,000,000</td></tr>
+          <tr><td class="rank-num">10</td><td>BC RCMP | GRC en CB</td><td>British Columbia</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$4,234,200,000</td></tr>
+          <tr><td class="rank-num">11</td><td>Samuel, Son &amp; Co., Limited</td><td>Ontario</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$3,800,000,000</td></tr>
+          <tr><td class="rank-num">12</td><td>Dexter Construction Company Limited</td><td>Nova Scotia</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$2,500,000,000</td></tr>
+          <tr><td class="rank-num">13</td><td>Ensign Energy Services</td><td>Alberta</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$1,791,800,000</td></tr>
+          <tr><td class="rank-num">14</td><td>mastronardi</td><td>Ontario</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$1,500,000,000</td></tr>
+          <tr><td class="rank-num">15</td><td>Mastronardi Produce</td><td>Ontario</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$1,500,000,000</td></tr>
+          <tr><td class="rank-num">16</td><td>THAMES RIVER CHEMICAL CORP</td><td>Ontario</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$1,300,000,000</td></tr>
+          <tr><td class="rank-num">17</td><td>Targray Technology International</td><td>Quebec</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$860,000,000</td></tr>
+          <tr><td class="rank-num">18</td><td>LGC Consultants en logistique</td><td>Quebec</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$789,600,000</td></tr>
+          <tr><td class="rank-num">19</td><td>Versa</td><td>Ontario</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$750,000,000</td></tr>
+          <tr><td class="rank-num">20</td><td>Firma</td><td>Ontario</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$750,000,000</td></tr>
+          <tr><td class="rank-num">21</td><td>Ebury</td><td>Ontario</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$750,000,000</td></tr>
+          <tr><td class="rank-num">22</td><td>excocorp</td><td>Ontario</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$619,300,000</td></tr>
+          <tr><td class="rank-num">23</td><td>Vulcraft</td><td>Ontario</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$562,300,000</td></tr>
+          <tr><td class="rank-num">24</td><td>CBC Radio</td><td>Ontario</td><td><span class="badge badge-neutral">Media</span></td><td class="right">$515,420,000</td></tr>
+          <tr><td class="rank-num">25</td><td>CBSA / Canada Border Services</td><td>Ontario</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$502,000,000</td></tr>
+          <tr><td class="rank-num">26</td><td>Axiom Builders</td><td>British Columbia</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$428,700,000</td></tr>
+          <tr><td class="rank-num">27</td><td>SEA HARVEST SEAFOOD Ltd</td><td>Nova Scotia</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$335,000,000</td></tr>
+          <tr><td class="rank-num">28</td><td>IRWIN INDUSTRIAL AGENCIES LTD.</td><td>Ontario</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$333,000,000</td></tr>
+          <tr><td class="rank-num">29</td><td>C3 Associates LLC</td><td>Alberta</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$310,600,000</td></tr>
+          <tr><td class="rank-num">30</td><td>Elte</td><td>Ontario</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$308,600,000</td></tr>
+          <tr><td class="rank-num">31</td><td>Omc Enterprises Inc.</td><td>Ontario</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$306,000,000</td></tr>
+          <tr><td class="rank-num">32</td><td>University of Guelph</td><td>Ontario</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$293,300,000</td></tr>
+          <tr><td class="rank-num">33</td><td>Atmosphere</td><td>Quebec</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$283,500,000</td></tr>
+          <tr><td class="rank-num">34</td><td>AvenEx</td><td>British Columbia</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$271,600,000</td></tr>
+          <tr><td class="rank-num">35</td><td>Sangoma Partners</td><td>Ontario</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$250,000,000</td></tr>
+          <tr><td class="rank-num">36</td><td>Canimex Inc.</td><td>Quebec</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$217,300,000</td></tr>
+          <tr><td class="rank-num">37</td><td>Motive Energy Systems</td><td>Manitoba</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$211,300,000</td></tr>
+          <tr><td class="rank-num">38</td><td>Wurth Canada Limited</td><td>Ontario</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$203,700,000</td></tr>
+          <tr><td class="rank-num">39</td><td>Silfab Solar</td><td>Ontario</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$162,900,000</td></tr>
+          <tr><td class="rank-num">40</td><td>Transco Packaging Group</td><td>Quebec</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$160,000,000</td></tr>
+          <tr><td class="rank-num">41</td><td>Starline Windows Ltd</td><td>British Columbia</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$124,400,000</td></tr>
+          <tr><td class="rank-num">42</td><td>Umbra Ltd.</td><td>Ontario</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$114,200,000</td></tr>
+          <tr><td class="rank-num">43</td><td>Monos Travel Ltd.</td><td>British Columbia</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$100,000,000</td></tr>
+          <tr><td class="rank-num">44</td><td>Ciment Quebec inc</td><td>Quebec</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$100,000,000</td></tr>
+          <tr><td class="rank-num">45</td><td>Lee Valley Tools</td><td>Ontario</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$96,100,000</td></tr>
+          <tr><td class="rank-num">46</td><td>Orthex Canada Inc</td><td>Quebec</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$84,900,000</td></tr>
+          <tr><td class="rank-num">47</td><td>Malpack Ltd</td><td>Ontario</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$16,700,000</td></tr>
+          <tr><td class="rank-num">48</td><td>Sparkular</td><td>Ontario</td><td><span class="badge badge-accent">Customer</span></td><td class="right">$10,000,000</td></tr>
+          <tr><td class="rank-num">49</td><td>Canrex Commodities</td><td>Ontario</td><td><span class="badge badge-accent">Customer</span></td><td class="right muted">—</td></tr>
+          <tr><td class="rank-num">50</td><td>Archimat inc.</td><td>Quebec</td><td><span class="badge badge-accent">Customer</span></td><td class="right muted">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="insight">
+      49 of 50 top accounts are "Customer" type; one is "Media" (CBC Radio). <strong>Ontario accounts dominate the top 50</strong> with 31 entries. Notable: mastronardi and Mastronardi Produce appear to be duplicate CRM records for the same company — data cleanup recommended. Total <code>Annual_Revenue</code> across all 539 Canadian accounts: <strong>~$628B</strong> (heavily skewed by CRA at $447.8B).
+    </div>
+
+  </div><!-- /section 2 -->
+
+
+  <!-- ═══════════════════════════════ SECTION 3 ═══════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <div class="section-eyebrow">Section 03</div>
+        <div class="section-title">Churn Rate — Canada vs. Non-Canada</div>
+      </div>
+      <div class="section-num">03</div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-card-label">CA — Cancelled Accounts</div>
+        <div class="stat-card-value positive">0</div>
+        <div class="stat-card-note">No Canadian accounts with Subscription_Status = "Cancelled"</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">CA — Expired Accounts</div>
+        <div class="stat-card-value amber">1</div>
+        <div class="stat-card-note">TM Wholesale (Subscription_Status = "Expired")</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Global — Cancelled + Expired</div>
+        <div class="stat-card-value">10</div>
+        <div class="stat-card-note">3 Cancelled (0 CA), 7 Expired (1 CA) across entire CRM</div>
+      </div>
+    </div>
+
+    <div style="background:var(--surface);border:1px solid var(--border);padding:20px 24px;margin-top:4px;">
+      <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-muted);margin-bottom:12px;">Why a Reliable Churn Rate Cannot Be Calculated</div>
+      <p style="font-size:13.5px;color:var(--ink);line-height:1.7;margin-bottom:10px;">Zoho CRM does not systematically track churn events. Key issues:</p>
+      <ul style="font-size:13.5px;color:var(--ink-mid);line-height:1.9;padding-left:20px;">
+        <li><strong>~57% of Canadian customer accounts (287 of 500)</strong> have a null Subscription_Status — these could be active, lapsed, or historical with no way to distinguish.</li>
+        <li>No "Former Customer" or "Churned" Account_Type values exist anywhere in the system.</li>
+        <li>Only 10 accounts globally have a Cancelled or Expired status — clearly an under-count of actual churn events.</li>
+        <li>Closed Lost deals (119 total, ~4 Canadian) are a partial signal for prospects who never converted, not existing customer churn.</li>
+      </ul>
+      <div class="insight" style="margin-top:14px;">
+        <strong>Recommendation:</strong> Reliable churn metrics require either (a) Recurly cancellation event data, or (b) a systematic CRM process to update Subscription_Status when accounts cancel. Currently, CRM churn data is not actionable.
+      </div>
+    </div>
+
+  </div><!-- /section 3 -->
+
+
+  <!-- ═══════════════════════════════ SECTION 4 ═══════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <div class="section-eyebrow">Section 04</div>
+        <div class="section-title">Lead &amp; Pipeline Data</div>
+      </div>
+      <div class="section-num">04</div>
+    </div>
+
+    <div class="stat-grid stat-grid-4">
+      <div class="stat-card">
+        <div class="stat-card-label">CA Leads (LTM)</div>
+        <div class="stat-card-value accent">700+</div>
+        <div class="stat-card-note">600 confirmed (3 pages); est. 700–900 total. June 2025–June 2026.</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Demo Requests (CA)</div>
+        <div class="stat-card-value accent">~315</div>
+        <div class="stat-card-note">Contact Demo Form (~200) + Demo Request source (~35) + status (~65) + OLD forms (~15)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">CA Closed-Won Leads</div>
+        <div class="stat-card-value positive">1</div>
+        <div class="stat-card-note">Matt Mashaal, WareMatch (Quebec) — July 2025 via OLD Contact Demo Form</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Demo % of CA Leads</div>
+        <div class="stat-card-value accent">~45%</div>
+        <div class="stat-card-note">Demo-related sources account for nearly half of all CA leads</div>
+      </div>
+    </div>
+
+    <!-- Lead Source Breakdown -->
+    <div style="margin-top:24px;">
+      <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-muted);margin-bottom:14px;">Canadian Lead Sources (LTM Sample: 600 records)</div>
+      <div class="two-col">
+        <div>
+          <div class="source-grid">
+            <div class="source-header">
+              <span>Lead Source</span><span style="text-align:right">Count</span><span style="text-align:right">Share</span>
+            </div>
+            <div class="source-row">
+              <div class="source-name">Contact Demo Form <span class="badge badge-accent" style="margin-left:6px">Demo</span></div>
+              <div class="source-count accent" style="color:var(--accent)">~200</div>
+              <div class="source-pct">33%</div>
+            </div>
+            <div class="source-row">
+              <div class="source-name">Tradebase Paywall</div>
+              <div class="source-count">~185</div>
+              <div class="source-pct">31%</div>
+            </div>
+            <div class="source-row">
+              <div class="source-name">Contact Page Contact Form</div>
+              <div class="source-count">~35</div>
+              <div class="source-pct">6%</div>
+            </div>
+            <div class="source-row">
+              <div class="source-name">Demo Request <span class="badge badge-accent" style="margin-left:6px">Demo</span></div>
+              <div class="source-count accent" style="color:var(--accent)">~35</div>
+              <div class="source-pct">6%</div>
+            </div>
+            <div class="source-row">
+              <div class="source-name">Chat</div>
+              <div class="source-count">~35</div>
+              <div class="source-pct">6%</div>
+            </div>
+            <div class="source-row">
+              <div class="source-name">Website Form</div>
+              <div class="source-count">~25</div>
+              <div class="source-pct">4%</div>
+            </div>
+            <div class="source-row">
+              <div class="source-name">Webinar</div>
+              <div class="source-count">~20</div>
+              <div class="source-pct">3%</div>
+            </div>
+            <div class="source-row">
+              <div class="source-name">OLD Contact Demo Form <span class="badge badge-accent" style="margin-left:6px">Demo</span></div>
+              <div class="source-count accent" style="color:var(--accent)">~25</div>
+              <div class="source-pct">4%</div>
+            </div>
+            <div class="source-row">
+              <div class="source-name">Online Signup</div>
+              <div class="source-count">~12</div>
+              <div class="source-pct">2%</div>
+            </div>
+            <div class="source-row">
+              <div class="source-name">Newsletter Footer / Signup</div>
+              <div class="source-count">~11</div>
+              <div class="source-pct">2%</div>
+            </div>
+            <div class="source-row">
+              <div class="source-name">Other (Talk to Sales, Zoho, Social, Referral)</div>
+              <div class="source-count">~17</div>
+              <div class="source-pct">3%</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lead Status Breakdown -->
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-muted);margin-bottom:10px;">Lead Status</div>
+          <div class="bar-list">
+            <div class="bar-item">
+              <div class="bar-label">Tradebase Paywall</div>
+              <div class="bar-track"><div class="bar-fill amber" style="width:100%"></div></div>
+              <div class="bar-value">~150</div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-label">Lost Lead</div>
+              <div class="bar-track"><div class="bar-fill" style="background:var(--negative);width:90%"></div></div>
+              <div class="bar-value">~135</div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-label">Contacted</div>
+              <div class="bar-track"><div class="bar-fill" style="width:46.7%"></div></div>
+              <div class="bar-value">~70</div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-label">Demo Request</div>
+              <div class="bar-track"><div class="bar-fill" style="width:43.3%"></div></div>
+              <div class="bar-value">~65</div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-label">Junk Lead</div>
+              <div class="bar-track"><div class="bar-fill" style="background:var(--negative);width:36.7%"></div></div>
+              <div class="bar-value">~55</div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-label">New Lead</div>
+              <div class="bar-track"><div class="bar-fill green" style="width:23.3%"></div></div>
+              <div class="bar-value">~35</div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-label">Enrichment In-Progress</div>
+              <div class="bar-track"><div class="bar-fill amber" style="width:20%"></div></div>
+              <div class="bar-value">~30</div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-label">Interested</div>
+              <div class="bar-track"><div class="bar-fill green" style="width:20%"></div></div>
+              <div class="bar-value">~30</div>
+            </div>
+          </div>
+          <div class="insight" style="margin-top:12px;font-size:12.5px;">
+            ~22% of CA leads arrive as <strong>Junk or Lost</strong> immediately. ~33% are in active sales motion (Demo Request, Contacted, Interested).
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /section 4 -->
+
+
+  <!-- ═══════════════════════════════ SECTION 5 ═══════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <div class="section-eyebrow">Section 05</div>
+        <div class="section-title">Closed-Won Rate: Canada vs. Overall</div>
+      </div>
+      <div class="section-num">05</div>
+    </div>
+
+    <div class="compare-block">
+      <div class="compare-header">
+        <div>Metric</div>
+        <div>Canada</div>
+        <div>Global Average</div>
+      </div>
+      <div class="compare-row highlight">
+        <div>Closed-Won Rate</div>
+        <div><span class="big-pct" style="color:var(--positive)">94.8%</span></div>
+        <div><span class="big-pct" style="color:var(--ink-mid)">93.7%</span></div>
+      </div>
+      <div class="compare-row">
+        <div>Closed Won — Count</div>
+        <div>73</div>
+        <div>1,771</div>
+      </div>
+      <div class="compare-row">
+        <div>Closed Lost — Count</div>
+        <div>4</div>
+        <div>119</div>
+      </div>
+      <div class="compare-row">
+        <div>Total Decided Deals</div>
+        <div>77</div>
+        <div>1,890</div>
+      </div>
+      <div class="compare-row">
+        <div>Open Pipeline Deals (CA)</div>
+        <div>~36 open deals</div>
+        <div>600+ Qualified stage</div>
+      </div>
+      <div class="compare-row">
+        <div>Quantified Pipeline Value (CA)</div>
+        <div>~$134,859</div>
+        <div>N/A (amounts sparse)</div>
+      </div>
+    </div>
+
+    <div class="insight" style="margin-top:16px;">
+      Canadian companies close at <strong>94.8%</strong> — slightly above the global rate of 93.7%. Both rates are notably high because CRM "deals" primarily represent subscription activations with a low-friction sales process, not a traditional long-cycle funnel. The Closed Lost count is deliberately small (only formally logged losses).
+    </div>
+
+  </div><!-- /section 5 -->
+
+
+  <!-- ═══════════════════════════════ SECTION 6 ═══════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <div class="section-eyebrow">Section 06</div>
+        <div class="section-title">Pipeline — Canadian Companies (LTM)</div>
+      </div>
+      <div class="section-num">06</div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-card-label">Total CA Pipeline Value</div>
+        <div class="stat-card-value amber">~$134,859</div>
+        <div class="stat-card-note">Quantified open deals (Qualified, Negotiation, Proposal, In Contract, At Risk)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Unquantified CA Deals</div>
+        <div class="stat-card-value">~27</div>
+        <div class="stat-card-note">Qualified-stage deals with null Amount — value TBD</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">CA Closed-Won Value (LTM)</div>
+        <div class="stat-card-value positive">~$130K</div>
+        <div class="stat-card-note">Sum of CA Closed Won deal amounts, June 2025–June 2026</div>
+      </div>
+    </div>
+
+    <div style="margin-top:16px;">
+      <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-muted);margin-bottom:14px;">Open Pipeline by Stage</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Stage</th>
+              <th>Account</th>
+              <th>Province</th>
+              <th class="right">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><span class="badge badge-accent">In Contract</span></td><td>BIS Renewal (×2)</td><td>Ontario</td><td class="right">$34,166 × 2</td></tr>
+            <tr><td><span class="badge badge-accent">At Risk</span></td><td>Canadian Air Force</td><td>Ottawa</td><td class="right">$25,008</td></tr>
+            <tr><td><span class="badge badge-accent">Proposal Sent</span></td><td>Saskatchewan Trade &amp; Export</td><td>Saskatchewan</td><td class="right">$5,988</td></tr>
+            <tr><td><span class="badge badge-accent">Proposal Sent</span></td><td>Taag Tech</td><td>Ontario</td><td class="right">$18,000</td></tr>
+            <tr><td><span class="badge badge-accent">Negotiation</span></td><td>Low Freight Rate</td><td>Ontario</td><td class="right">$4,788</td></tr>
+            <tr><td><span class="badge badge-accent">Negotiation</span></td><td>Kissner Group</td><td>Ontario</td><td class="right">$3,514</td></tr>
+            <tr><td><span class="badge badge-accent">Negotiation</span></td><td>ProactiveSupply Chain</td><td>Ontario</td><td class="right">$229</td></tr>
+            <tr><td><span class="badge badge-accent">In Contract</span></td><td>RCMP Quebec</td><td>Quebec</td><td class="right">$9,000</td></tr>
+            <tr><td><span class="badge badge-neutral">Qualified (×27)</span></td><td colspan="2" class="muted">Multiple accounts — amounts not entered</td><td class="right muted">TBD</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="insight" style="margin-top:14px;">
+      The <strong>In Contract</strong> segment ($77K+) is the highest-priority close opportunity. The BIS/Commerce Department renewals and RCMP Quebec together represent $77K in near-certain revenue. Taag Tech ($18K Proposal Sent) is the largest new-logo opportunity in the current pipeline.
+    </div>
+
+  </div><!-- /section 6 -->
+
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p>ImportGenius · Canadian Market Report · Generated June 24, 2026</p>
+    <p>Source: Zoho CRM · Data reflects CRM state at time of extraction</p>
+  </div>
+
+</div><!-- /wrapper -->
+
+<!-- PDF Download Button -->
+<button class="pdf-btn" onclick="window.print()" title="Save as PDF">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+    <polyline points="7 10 12 15 17 10"/>
+    <line x1="12" y1="15" x2="12" y2="3"/>
+  </svg>
+  Download PDF
+</button>
+
+</body>
+</html>
